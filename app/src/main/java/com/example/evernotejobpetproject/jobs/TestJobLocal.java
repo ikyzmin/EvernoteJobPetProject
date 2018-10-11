@@ -69,7 +69,7 @@ public class TestJobLocal extends Job {
                             .setContentText("TEST")
                             .build());
                     fileLog.d(TestJobLocal.class.getSimpleName(), "notification shown");
-                    fileLog.close();
+                    fileLog.write();
                 });
         return Result.SUCCESS;
     }
@@ -78,6 +78,7 @@ public class TestJobLocal extends Job {
     protected void onCancel() {
         try {
             fileLog.d(TestJobLocal.class.getSimpleName(), "Test local job cancel");
+            fileLog.write();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

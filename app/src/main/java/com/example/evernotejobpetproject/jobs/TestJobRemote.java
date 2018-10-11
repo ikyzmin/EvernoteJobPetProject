@@ -56,7 +56,7 @@ public class TestJobRemote extends Job {
                                 .build());
 
                         fileLog.d(TestJobRemote.class.getSimpleName(), "notification shown");
-                        fileLog.close();
+                        fileLog.write();
                     });
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,6 +75,7 @@ public class TestJobRemote extends Job {
     protected void onCancel() {
         try {
             fileLog.d(TestJobRemote.class.getSimpleName(), "Test job cancel");
+            fileLog.write();
         } catch (IOException e) {
             log.e(TestJobRemote.class.getSimpleName(), e, "something wrong");
         } finally {

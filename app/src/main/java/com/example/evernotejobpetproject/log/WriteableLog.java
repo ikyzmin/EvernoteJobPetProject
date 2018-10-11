@@ -1,7 +1,5 @@
 package com.example.evernotejobpetproject.log;
 
-import android.support.annotation.CallSuper;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -32,4 +30,6 @@ public abstract class WriteableLog {
     public abstract String logFilesPattern();
 
     public abstract void close() throws IOException;
+
+    public abstract void write() throws IOException;
 }

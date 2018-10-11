@@ -38,10 +38,11 @@ public class App extends Application {
             fileLog.d(App.class.getSimpleName(), "TestJobRemote scheduled");
             TestJobLocal.scheduleMe();
             fileLog.d(App.class.getSimpleName(), "TestJobLocal scheduled");
-            fileLog.close();
+            fileLog.write();
         } catch (IOException ioException) {
             try {
                 fileLog.e(ioException, "cannot log in file");
+                fileLog.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

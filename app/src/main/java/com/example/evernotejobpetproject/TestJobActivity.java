@@ -60,7 +60,11 @@ public class TestJobActivity extends AppCompatActivity {
                         intent.putExtra(Intent.EXTRA_TEXT, "Zip file attached");
                         startActivityForResult(Intent.createChooser(intent, ""), SEND_LOG_REQUEST);
                         sendableLog.close();
-                    }, throwable -> sendableLog.e(throwable, "cannot prepare zip logs"));
+                    }, throwable -> {
+                        sendableLog.e(throwable, "cannot prepare zip logs");
+                        sendableLog.write();
+                        sendableLog.close();
+                    });
         });
     }
 

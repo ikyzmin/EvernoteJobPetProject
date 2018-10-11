@@ -81,6 +81,11 @@ public class SendableLog extends WriteableLog {
         origin.close();
     }
 
+    @Override
+    public void write() throws IOException {
+        origin.write();
+    }
+
     public SingleSubject<File[]> getLogs() {
         return logsSingleSubject;
     }

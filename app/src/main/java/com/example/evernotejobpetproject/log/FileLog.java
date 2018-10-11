@@ -131,6 +131,13 @@ public class FileLog extends WriteableLog {
         }
     }
 
+    @Override
+    public void write() throws IOException {
+        if (writer != null) {
+            writer.flush();
+        }
+    }
+
     public File logDirectory() {
         return logDirectory;
     }

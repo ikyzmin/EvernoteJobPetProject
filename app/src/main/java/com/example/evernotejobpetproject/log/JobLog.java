@@ -19,6 +19,7 @@ public class JobLog implements JobLogger {
             } else {
                 fileLog.e(tag, t, message);
             }
+            fileLog.write();
         } catch (IOException exception) {
             exception.printStackTrace();
             try {
