@@ -2,11 +2,13 @@ package com.example.evernotejobpetproject;
 
 import android.app.Application;
 
+import com.evernote.android.job.JobConfig;
 import com.evernote.android.job.JobManager;
 import com.example.evernotejobpetproject.jobs.TestJobLocal;
 import com.example.evernotejobpetproject.jobs.TestJobRemote;
 import com.example.evernotejobpetproject.jobs.creators.TestJobCreator;
 import com.example.evernotejobpetproject.log.FileLog;
+import com.example.evernotejobpetproject.log.JobLog;
 import com.example.evernotejobpetproject.log.Log;
 import com.example.evernotejobpetproject.remote.server.ExampleService;
 
@@ -28,6 +30,7 @@ public class App extends Application {
         instance = this;
         FileLog fileLog = new FileLog(new Log());
         try {
+            JobConfig.addLogger(new JobLog());
             fileLog.d(App.class.getSimpleName(), "App created");
             JobManager.create(this).addJobCreator(new TestJobCreator());
             fileLog.d(App.class.getSimpleName(), "Job manager created");

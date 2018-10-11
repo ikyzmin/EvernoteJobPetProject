@@ -35,7 +35,7 @@ public class TestJobRemote extends Job {
     @Override
     protected Result onRunJob(@NonNull Params params) {
         try {
-            fileLog.d(TestJobRemote.class.getSimpleName(),"Test job running");
+            fileLog.d(TestJobRemote.class.getSimpleName(), "Test job running");
 
             App.getInstance().getService().getPage()
                     .subscribeOn(new IoScheduler())
@@ -54,6 +54,8 @@ public class TestJobRemote extends Job {
                                 .setContentTitle("Request is complete")
                                 .setContentText("TEST")
                                 .build());
+
+                        fileLog.d(TestJobRemote.class.getSimpleName(), "notification shown");
                         fileLog.close();
                     });
         } catch (Exception e) {
@@ -74,7 +76,7 @@ public class TestJobRemote extends Job {
         try {
             fileLog.d(TestJobRemote.class.getSimpleName(), "Test job cancel");
         } catch (IOException e) {
-            log.e(TestJobRemote.class.getSimpleName(),e, "something wrong");
+            log.e(TestJobRemote.class.getSimpleName(), e, "something wrong");
         } finally {
             try {
                 fileLog.close();

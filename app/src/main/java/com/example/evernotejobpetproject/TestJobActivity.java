@@ -1,7 +1,6 @@
 package com.example.evernotejobpetproject;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,8 +16,6 @@ import com.example.evernotejobpetproject.log.Log;
 import com.example.evernotejobpetproject.log.SendableLog;
 import com.example.evernotejobpetproject.zip.ZipArchive;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,7 +54,7 @@ public class TestJobActivity extends AppCompatActivity {
                         intent.setType("vnd.android.cursor.dir/email");
                         Uri uri = Uri.fromFile(zipFile);
                         intent.putExtra(Intent.EXTRA_STREAM, uri);
-                        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy/HH:MM:ss ", Locale.getDefault());
+                        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy/HH:mm:ss ", Locale.getDefault());
                         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"ilya.kyzmin@myoffice.team"});
                         intent.putExtra(Intent.EXTRA_SUBJECT, String.format("Logs %s", dateFormat.format(new Date())));
                         intent.putExtra(Intent.EXTRA_TEXT, "Zip file attached");

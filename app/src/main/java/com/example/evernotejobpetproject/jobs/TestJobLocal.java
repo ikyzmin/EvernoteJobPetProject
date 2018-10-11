@@ -11,7 +11,6 @@ import android.support.v4.app.NotificationCompat;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobConfig;
 import com.evernote.android.job.JobRequest;
-import com.example.evernotejobpetproject.App;
 import com.example.evernotejobpetproject.R;
 import com.example.evernotejobpetproject.jobs.creators.TestJobCreator;
 import com.example.evernotejobpetproject.log.FileLog;
@@ -24,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.internal.schedulers.IoScheduler;
+import io.reactivex.schedulers.Schedulers;
 
 public class TestJobLocal extends Job {
     private static final int SYNC_INTERVAL_LEGACY = 5;
@@ -43,16 +42,15 @@ public class TestJobLocal extends Job {
             fileLog.d(TestJobLocal.class.getSimpleName(), "Test job running");
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
             try {
                 fileLog.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException logException) {
+                logException.printStackTrace();
             }
         }
 
-        Single.just(STUB_DATA).subscribeOn(new IoScheduler())
+
+        Single.just(STUB_DATA).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(stubData -> {
                     for (int i = 0; i < STUB_COUNT; i++) {
@@ -70,7 +68,8 @@ public class TestJobLocal extends Job {
                             .setContentTitle("Local job is complete")
                             .setContentText("TEST")
                             .build());
-
+                    fileLog.d(TestJobLocal.class.getSimpleName(), "notification shown");
+                    fileLog.close();
                 });
         return Result.SUCCESS;
     }
@@ -78,10 +77,10 @@ public class TestJobLocal extends Job {
     @Override
     protected void onCancel() {
         try {
-            fileLog.d(TestJobLocal.class.getSimpleName(),"Test local job cancel");
+            fileLog.d(TestJobLocal.class.getSimpleName(), "Test local job cancel");
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 fileLog.close();
             } catch (IOException e) {
